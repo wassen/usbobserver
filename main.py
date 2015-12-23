@@ -7,7 +7,6 @@ from mediafire import (MediaFireApi, MediaFireUploader)
 #checkDev(1423,25464)
 #change initfile's key to Default andsoon (change in context)
 
-
 INI_FILE = '/mnt/usb1/.MFUp_config'
 
 #evernote編集しましょう

@@ -82,57 +82,6 @@ def watch_usb():
 				os.rmdir(mountedpoint)
 	time.sleep(5)
 
-	#try except for config.read
-def MFUp():
-	if os.path.exists(INI_FILE):
-		config = configparser.SafeConfigParser()
-		config.read(INI_FILE)
-		upDir = config.get('MFUp','upDir')
-		#nesesally '\' end of upDir
-		cancel = config.get('MFUp','cancel')
-	else:
-		print ("Can't find setting file(%s)" % INI_FILE)#check this
-		if subprocess.call(['umount','/dev/sda1']):
-			print ('Unable to unmount.')
-		else:
-			print('Umount success')
-		return
-
-	if int(cancel) > 0:
-		print('Upload aborted')
-		return
-
-	subprocess.call(['cp','-r','/mnt/usb1/' + upDir,'/var/tmp/']) #doesnt check the duplication
-	print ('Success to copy')
-
-	if subprocess.call(['umount','/dev/sda1']):
-		print ('Unable to unmount.')
-	else:
-		print('Umount success.')
-
-	api = MediaFireApi()
-	uploader = MediaFireUploader(api)
-
-	session = api.user_get_session_token(
-		email = 'dmcvpedf1@yahoo.co.jp',
-		password = 'ipitracyMED9',
-		app_id = '48204')
-	api.session = session
-	print ('Made session.')
-
-	uplist = os.listdir('/var/tmp/' + upDir)
-	#Assume that file only #Recursively
-
-	for upfile in uplist:
-		print('Starting upload of '+upfile)
-		fd = open('/var/tmp/' + upDir + upfile, 'rb')
-		print ('/var/tmp/' + upDir + upfile)
-		upload_result = uploader.upload(fd, upfile)
-		api.file_update(upload_result.quickkey,privacy='private')
-		#change updir of Mediafire (now only root)
-		# change /var/tmp to /tmp
-		# erase Unnecessarry file
-
 if __name__ == '__main__':
 	#create_daemon(watch_usb)
 	while True:

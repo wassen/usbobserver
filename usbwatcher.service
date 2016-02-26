@@ -1,0 +1,12 @@
+[Unit]
+Description=Observe USB memory and Upload to Mediafire
+
+[Service]
+ExecStart=/usr/local/share/usbwatcher.py
+Restart=always
+Type=forking
+PIDFile=/var/run/usbwatcher.pid
+User=root
+
+[Install]
+WantedBy=multi-user.target

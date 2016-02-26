@@ -1,5 +1,5 @@
 [Unit]
-Description=Observe USB memory and Upload to Mediafire
+Description=Mount device automatically
 
 [Service]
 ExecStart=/usr/local/share/usbwatcher.py

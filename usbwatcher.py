@@ -83,6 +83,4 @@ def watch_usb():
 	time.sleep(5)
 
 if __name__ == '__main__':
-	#create_daemon(watch_usb)
-	while True:
-		watch_usb()
+	create_daemon(watch_usb)
